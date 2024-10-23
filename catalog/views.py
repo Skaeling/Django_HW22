@@ -3,14 +3,14 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request, "students/home.html")
+    return render(request, "catalog/home.html")
 
 
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get("name")
-        email = request.POST.get("email")
+        phone = request.POST.get("phone")
         message = request.POST.get("message")
-        print(f'Получено новое сообщение от {name} {email}: {message}')
+        print(f'Получено новое сообщение от {name} {phone}: {message}')
         return HttpResponse(f'Спасибо, {name}, ваше сообщение получено')
-    return render(request, 'students/contact.html')
+    return render(request, 'catalog/contact.html')
