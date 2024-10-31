@@ -1,0 +1,44 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "Дельфины и пингвины",
+        "description": "Надувные, плюшевые, резиновые"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Медведи и зайки",
+        "description": "С натуральным наполнителем"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "name": "Дельфин надувной XL",
+        "description": "Воздушный шар 20х30 с подарочной лентой и декоративным якорем",
+        "image": "photos/z461tkd9lkfq126s3gxi3t3eoyl9oe1p.jpg",
+        "category": 1,
+        "price": 100,
+        "created_at": "2024-10-31T15:03:10.147Z",
+        "updated_at": "2024-10-31T15:03:10.148Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "name": "Пингвин плюшевый мультицвет",
+        "description": "20 см нежнейшего пуха, сменный клюв в подарок",
+        "image": "photos/tupik_sK7DVr4.png",
+        "category": 1,
+        "price": 120,
+        "created_at": "2024-10-31T15:04:50.369Z",
+        "updated_at": "2024-10-31T15:04:50.369Z"
+    }
+}
+]
