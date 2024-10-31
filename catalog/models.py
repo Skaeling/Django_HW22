@@ -6,7 +6,7 @@ class Category(models.Model):
     description = models.TextField(verbose_name="Описание")
 
     def __str__(self):
-        return f'{self.name}({self.description})'
+        return f'{self.name} ({self.description})'
 
     class Meta:
         verbose_name = 'категория'
@@ -15,7 +15,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=150, verbose_name="Продукт")
+    name = models.CharField(max_length=150, verbose_name="Товар")
     description = models.TextField(null=True, blank=True, verbose_name="Описание")
     image = models.ImageField(upload_to='photos/', verbose_name="Фотография")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
@@ -27,6 +27,6 @@ class Product(models.Model):
         return f'{self.name} {self.category} {self.price})'
 
     class Meta:
-        verbose_name = 'продукт'
-        verbose_name_plural = 'продукты'
+        verbose_name = 'товар'
+        verbose_name_plural = 'товары'
         ordering = ['name', ]
