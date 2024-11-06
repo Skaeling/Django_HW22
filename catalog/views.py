@@ -19,3 +19,12 @@ def get_contact(request):
         print(f'Получено новое сообщение от {contact.name} ({contact.email}): {contact.message}')
         return render(request, 'catalog/contact.html', {"contact": result})
     return render(request, 'catalog/contact.html')
+
+
+def product(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {
+        'product': product
+    }
+    return render(request, 'catalog/product.html', context)
+
