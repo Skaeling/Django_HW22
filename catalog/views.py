@@ -3,9 +3,12 @@ from .models import Product, Contact
 
 
 def home(request):
-    products = Product.objects.reverse()[:5]
-    [print(product) for product in products]
-    return render(request, "catalog/home.html")
+    products = Product.objects.all()[:6]
+    context = {
+        'products': products
+    }
+    # [print(product) for product in products]
+    return render(request, "catalog/home.html", context)
 
 
 def get_contact(request):
