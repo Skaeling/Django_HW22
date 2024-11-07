@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product, Contact, Category
 
 
@@ -9,11 +9,11 @@ def home(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context = {
+        "page_obj": page_obj,
         'products': products,
         'title': "Главная"
     }
-    # [print(product) for product in products]
-    return render(request, "catalog/home.html", {"page_obj": page_obj, 'products': products, 'title': "Главная"})
+    return render(request, "catalog/home.html", context)
 
 
 def get_contact(request):
@@ -27,32 +27,36 @@ def get_contact(request):
         contact.message = request.POST.get("message")
         contact.save()
         result = Contact.objects.all()
+        context = {
+            "contact": result,
+            'title': "Контакты"
+        }
         print(f'Получено новое сообщение от {contact.name} ({contact.email}): {contact.message}')
-        return render(request, 'catalog/contact.html', {"contact": result})
+        return render(request, 'catalog/contact.html', context)
     return render(request, 'catalog/contact.html', context)
 
 
 def product(request, pk):
-    product = Product.objects.get(pk=pk)
+    product_pk = Product.objects.get(pk=pk)
     context = {
-        'product': product
+        'product': product_pk
     }
     return render(request, 'catalog/product.html', context)
 
 
 def user_product(request):
     context = {
-        'title': "Добавить новый продукт"
+        'title': "Добавить товар"
     }
     if request.method == 'POST':
-        user_product = Product()
-        user_product.name = request.POST.get("name")
-        user_product.description = request.POST.get("description")
-        user_product.image = request.POST.get("image")
-        user_product.category = Category(request.POST.get("category"))
-        user_product.price = request.POST.get("price")
-        user_product.save()
-        result = Product.objects.all()
-        return render(request, 'catalog/home.html', {"products": result})
+        new_product = Product()
+        new_product.name = request.POST.get("name")
+        new_product.description = request.POST.get("description")
+        new_product.image = request.POST.get("image")
+        new_product.category = Category(request.POST.get("category"))
+        new_product.price = request.POST.get("price")
+        new_product.save()
+        print(f'Добавлен новый продукт: {new_product.name} стоимостью {new_product.price}$')
+        return redirect('product', new_product.pk)
     return render(request, 'catalog/user_product.html', context)
 
