@@ -6,11 +6,12 @@
     <div class="row text-secondary text-center">
         <h5>Добро пожаловать в магазин игрушек и товаров для дома!</h5>
     </div>
-    <!-- Карточки подборок товаров-->
+
+    <!-- Карточки товаров-->
     <div class="row mt-3">
         <div class="container">
             <div class="row row-cols-3">
-                {% for product in products %}
+                {% for product in page_obj %}
                 <div class="col mb-3">
                     <div class="card border-info">
                         <div class="card-header">{{ product.category }}</div>
@@ -27,8 +28,15 @@
         </div>
     </div>
     <div class='row mt-5'>
+
+            <!--Пагинатор-->
         <div class="col-12">
-                <a href="{% url 'user_product' %}" class="btn btn-primary">Добавить новый товар</a>
+            {% if products.count > 3 %}
+            {% include "catalog/includes/inc_catalog_pages.html" %}
+            {% endif %}
+
+            <!--Переход на форму нового товара-->
+                <a href="{% url 'user_product' %}" class="btn btn-info">Добавить новый товар</a>
         </div>
     </div>
 </div>
