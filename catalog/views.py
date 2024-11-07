@@ -5,13 +5,17 @@ from .models import Product, Contact
 def home(request):
     products = Product.objects.all()[:6]
     context = {
-        'products': products
+        'products': products,
+        'title': "Главная"
     }
-    # [print(product) for product in products]
+    [print(product) for product in products]
     return render(request, "catalog/home.html", context)
 
 
 def get_contact(request):
+    context = {
+        'title': "Контакты"
+    }
     if request.method == 'POST':
         contact = Contact()
         contact.name = request.POST.get("name")
@@ -21,7 +25,7 @@ def get_contact(request):
         result = Contact.objects.all()
         print(f'Получено новое сообщение от {contact.name} ({contact.email}): {contact.message}')
         return render(request, 'catalog/contact.html', {"contact": result})
-    return render(request, 'catalog/contact.html')
+    return render(request, 'catalog/contact.html', context)
 
 
 def product(request, pk):
