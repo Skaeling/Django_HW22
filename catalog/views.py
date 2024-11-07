@@ -1,14 +1,14 @@
 from django.shortcuts import render
-from .models import Product, Contact
+from .models import Product, Contact, Category
 
 
 def home(request):
-    products = Product.objects.all()[:6]
+    products = Product.objects.all()
     context = {
         'products': products,
         'title': "Главная"
     }
-    [print(product) for product in products]
+    # [print(product) for product in products]
     return render(request, "catalog/home.html", context)
 
 
@@ -34,4 +34,21 @@ def product(request, pk):
         'product': product
     }
     return render(request, 'catalog/product.html', context)
+
+
+def user_product(request):
+    context = {
+        'title': "Добавить новый продукт"
+    }
+    if request.method == 'POST':
+        user_product = Product()
+        user_product.name = request.POST.get("name")
+        user_product.description = request.POST.get("description")
+        user_product.image = request.POST.get("image")
+        user_product.category = Category(request.POST.get("category"))
+        user_product.price = request.POST.get("price")
+        user_product.save()
+        result = Product.objects.all()
+        return render(request, 'catalog/home.html', {"products": result})
+    return render(request, 'catalog/user_product.html', context)
 
