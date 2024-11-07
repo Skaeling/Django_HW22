@@ -6,18 +6,18 @@
     <div class="row text-secondary text-center">
         <h5>Характеристики товара</h5>
     </div>
-
     <!-- Карточки подборок товаров-->
     <div class="row mt-3">
         <div class="col-12 d-flex justify-content-center">
             <div class="card border-info" style="width: 30rem;">
                 <div class="card-header">Категория: {{ product.category }}</div>
+                <img src="{{ product.image }}" class="card-img-top" alt="preview" width="100" height="150">
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <img src="{{ product.image }}" class="card-img" alt="logo" width="32" height="32">
                     <p class="card-text text-secondary">{{ product.description}}</p>
-                    <h3>{{ product.price }}$</h3>
-                    <a href="#" class="btn btn-info">Купить</a>
+                    <h3>{{ product.price }} $</h3>
+                    <a href="{% url 'home' %}" class="btn btn-info">Назад</a>
+                    <a href="#" class="btn btn-info">Добавить в корзину</a>
                 </div>
                 </div>
             </div>

@@ -6,7 +6,6 @@
             <div class="row text-secondary text-center">
                 <h5>Вы находитесь на сайте, предназначенном для продажи товаров</h5>
             </div>
-<!--{{ product.description|truncatechars:100 }}-->
             <!-- Карточки подборок товаров-->
             <div class="row mt-3">
                 <div class="container">
@@ -17,9 +16,9 @@
                                 <div class="card-header">{{ product.category }}</div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ product.name }}</h5>
-                                    <h3>{{ product.price }}$</h3>
+                                    <h3>{{ product.price }} $</h3>
                                     <p class="card-text text-secondary">{{ product.description|truncatechars:20 }}</p>
-                                    <a href="#" class="btn btn-info">Подробнее</a>
+                                    <a href="{% url 'product' product.pk %}" class="btn btn-info">Подробнее</a>
                                 </div>
                             </div>
                         </div>
