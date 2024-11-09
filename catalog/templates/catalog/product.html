@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+{% block title%}Описание товара{% endblock %}
+{% block content%}
+<div class="col-12 text-center">
+    <h1 class="display-4">Товар №{{ product.pk }}</h1>
+    <div class="row text-secondary text-center">
+        <h5>Характеристики товара</h5>
+    </div>
+    <!-- Карточки подборок товаров-->
+    <div class="row mt-3">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="card border-info" style="width: 25rem;">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="preview" height="300">
+                <div class="card-header">Категория: {{ product.category }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text text-secondary">{{ product.description}}</p>
+                    <h3>{{ product.price }} $</h3>
+                    <a href="{% url 'home' %}" class="btn btn-info">На главную</a>
+                    <a href="#" class="btn btn-info">Добавить в корзину</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

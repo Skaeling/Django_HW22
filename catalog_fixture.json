@@ -47,7 +47,7 @@
     "fields": {
         "name": "Медведь Гризли",
         "description": "Реалистичный ушастый соня",
-        "image": "",
+        "image": "photos/unnamed.jpg",
         "category": 2,
         "price": 200,
         "created_at": "2024-11-01T10:51:59.420Z",
@@ -60,7 +60,7 @@
     "fields": {
         "name": "Заяц попрыгун малый",
         "description": "Серая спинка зимой и летом",
-        "image": "",
+        "image": "photos/9Rr7oYb5P6d1ubgUZPu3xrLQhmKz-GNub0ZDaCqmZVY=.jpeg",
         "category": 2,
         "price": 90,
         "created_at": "2024-11-01T10:53:19.368Z",
@@ -73,7 +73,7 @@
     "fields": {
         "name": "Мишка белый вязаный",
         "description": "Натуральная шерсть, неколкая",
-        "image": "",
+        "image": "photos/38c32d2065ec11eeb02c2ab2a9c6ab46-upscaled.jpeg",
         "category": 2,
         "price": 350,
         "created_at": "2024-11-01T10:56:02.274Z",
@@ -86,7 +86,7 @@
     "fields": {
         "name": "Пингвин резиновый XS",
         "description": "Иногда попискивает",
-        "image": "",
+        "image": "photos/-547002104.jpeg",
         "category": 1,
         "price": 50,
         "created_at": "2024-11-01T10:57:05.587Z",
@@ -99,7 +99,7 @@
     "fields": {
         "name": "Дельфин-мочалка разноцветный",
         "description": "Плеск и блеск для всей семьи",
-        "image": "",
+        "image": "photos/cb842buikegvjuj5ath0.jpg",
         "category": 1,
         "price": 150,
         "created_at": "2024-11-01T10:58:20.883Z",
