@@ -50,13 +50,6 @@ def user_product(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             new_product = form.save()
-        # new_product = Product()
-        # new_product.name = request.POST.get("name")
-        # new_product.description = request.POST.get("description")
-        # new_product.image = request.FILES(request.POST.get("image"))
-        # new_product.category = Category(request.POST.get("category"))
-        # new_product.price = request.POST.get("price")
-        # new_product.save()
             print(f'Добавлен новый продукт: {new_product.name} стоимостью {new_product.price}$')
             return redirect('product', new_product.pk)
     else:
