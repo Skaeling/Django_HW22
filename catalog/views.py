@@ -1,20 +1,16 @@
-from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView
+from django.urls import reverse_lazy
 from .models import Product, Contact
 from .forms import ProductForm
 
 
-def home(request):
-    products = Product.objects.all()
-    paginator = Paginator(products, 6)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    context = {
-        "page_obj": page_obj,
-        'products': products,
-        'title': "Главная"
-    }
-    return render(request, "catalog/home.html", context)
+class HomeListView(ListView):
+    model = Product
+    template_name = "catalog/home.html"
+    extra_context = {'title': 'Главная'}
+    paginate_by = 6
 
 
 def get_contact(request):
@@ -37,12 +33,11 @@ def get_contact(request):
     return render(request, 'catalog/contact.html', context)
 
 
-def product(request, pk):
-    product_pk = Product.objects.get(pk=pk)
-    context = {
-        'product': product_pk
-    }
-    return render(request, 'catalog/product.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
+    extra_context = {'title': 'Описание товара'}
 
 
 def user_product(request):
