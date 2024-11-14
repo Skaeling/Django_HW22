@@ -9,9 +9,13 @@
             <div class="row row-cols-3">
                 {% for product in product_list %}
                 <div class="col mb-3">
-                    <div class="card border-info">
-                        <div class="card-header">{{ product.category }}</div>
+                    <div class="card border-secondary">
+                        <div class="card-header bg-info-subtle">{{ product.category }}</div>
+<!--                        <img src="{{ product.image.url }}" alt="" height="50"-->
+<!--                                class="card-img-top rounded">-->
                         <div class="card-body">
+                            <img src="{{ product.image.url }}" alt="" width="100" height="100"
+                         class="rounded ">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <h3>{{ product.price }} $</h3>
                             <p class="card-text text-secondary">{{ product.description|truncatechars:20 }}</p>
