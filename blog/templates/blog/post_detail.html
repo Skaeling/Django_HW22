@@ -1,0 +1,25 @@
+{% extends 'catalog/base.html' %}
+{% block content%}
+<div class="col-12 text-center">
+    <h1 class="display-4">{{ post.title }}</h1>
+    <div class="row text-secondary text-center">
+        <h5>Опубликована: {{ post.created_at }}</h5>
+        <h5>Обновлена: {{ post.updated_at }}</h5>
+    </div>
+
+    <div class="row mt-3">
+            <div class="row row-cols-2">
+                <div class="col">
+                    <p class="text-start">{{ post.body|safe }}</p>
+                    <div class="container mt-3">
+                        <a href="{% url 'blog:posts_list' %}" class="btn btn-info">К другим постам</a>
+                        <a href="#" class="btn btn-info">Написать комментарий</a>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="{{ post.preview.url }}" alt="image" height="300" width="600">
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock %}
