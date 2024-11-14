@@ -21,13 +21,14 @@ class ContactCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        if self.request.method == 'POST':
-            name = self.request.POST.get('name')
-            email = self.request.POST.get('email')
-            message = self.request.POST.get('message')
-            print(f'You have new message from {name}({email}): {message}')
         context_data['contacts'] = Contact.objects.all()
         return context_data
+
+    def form_valid(self, form):
+        if form.is_valid():
+            print(f'У вас новое сообщение от {form.instance.name}({form.instance.email}): {form.instance.message}')
+
+        return super().form_valid(form)
 
 
 class ProductDetailView(DetailView):
@@ -44,15 +45,9 @@ class ProductCreateView(CreateView):
     context_object_name = 'product'
     extra_context = {'title': 'Добавить товар'}
 
+    def form_valid(self, form):
+        if form.is_valid():
+            print(f'В категорию {form.instance.category} добавлен новый продукт: {form.instance.name}')
 
-# def user_product(request):
-#     if request.method == 'POST':
-#         form = ProductForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             new_product = form.save()
-#             print(f'Добавлен новый продукт: {new_product.name} стоимостью {new_product.price}$')
-#             return redirect('product', new_product.pk)
-#     else:
-#         form = ProductForm()
-#     return render(request, 'catalog/add_product.html', {'title': "Добавить товар", "form": form})
+        return super().form_valid(form)
 
