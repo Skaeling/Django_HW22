@@ -17,7 +17,7 @@ class ContactCreateView(CreateView):
     form_class = ContactForm
     extra_context = {'title': 'Контакты'}
     template_name = 'catalog/contact.html'
-    success_url = reverse_lazy('contact')
+    success_url = reverse_lazy('catalog:contact')
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -47,7 +47,7 @@ class ProductCreateView(CreateView):
 
     def form_valid(self, form):
         if form.is_valid():
-            print(f'В категорию {form.instance.category} добавлен новый продукт: {form.instance.name}')
+            print(f'В категорию "{form.instance.category}" добавлен новый продукт: "{form.instance.name}"')
 
         return super().form_valid(form)
 

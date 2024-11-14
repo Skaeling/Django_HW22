@@ -25,7 +25,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
 
     def get_absolute_url(self):
-        return reverse("product_detail", kwargs={"pk": self.pk})
+        return reverse("catalog:product_detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return f'{self.name} {self.price}$ ({self.category}) '
