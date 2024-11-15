@@ -1,7 +1,10 @@
+import os
+
+from .models import Post
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
-from .models import Post
+from django.core.mail import send_mail
 
 
 class PostListView(ListView):
@@ -26,6 +29,12 @@ class PostDetailView(DetailView):
         obj = super().get_object(queryset=queryset)
         obj.views_count += 1
         obj.save()
+        if obj.views_count >= 100:
+            sender = os.getenv('EMAIL_HOST_USER')
+            to = os.getenv('EMAIL_HOST_USER')
+            send_mail("Ваша статья популярна!",
+                      f'Статья "{obj.title}" набрала {obj.views_count} просмотров!', sender, [to])
+            return obj
         return obj
 
 
