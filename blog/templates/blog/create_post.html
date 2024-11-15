@@ -1,13 +1,12 @@
 {% extends 'catalog/base.html' %}
 {% block content%}
 <div class="col-12">
-            {% include "catalog/includes/inc_catalog_header.html" with title=title header="Заполните форму для создания поста"%}
+            {% include "catalog/includes/inc_catalog_header.html" with title=title header="Заполните форму"%}
             <div class="row mt-3">
                 <div class="container d-flex justify-content-around">
                         <div class="col-6">
                             <!-- Форма -->
                             <form method="post" enctype="multipart/form-data" action="" class="form-floating">
-                                <!-- Токен-->
                                 {% csrf_token %}
                                 <div class="mb-3">
                                     <label for="title"><strong>Заголовок статьи</strong></label>
@@ -29,7 +28,13 @@
                                        placeholder="Опубликована">
                                 </div>
                                 <a href="{% url 'blog:posts_list' %}" class="btn btn-info">Отменить</a>
-                                <button type="submit" class="btn btn-info">Создать пост</button>
+                                <button type="submit" class="btn btn-info">
+                                    {% if object %}
+                                    Сохранить пост
+                                    {% else %}
+                                    Cоздать пост
+                                    {% endif %}
+                                </button>
                             </form>
                         </div>
                 </div>

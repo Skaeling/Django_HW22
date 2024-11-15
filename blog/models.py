@@ -8,7 +8,7 @@ class Post(models.Model):
     preview = models.ImageField(upload_to='photos/', blank=True, null=True, verbose_name="Изображение")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     is_published = models.BooleanField(default=True, verbose_name="Опубликован")
-    view_count = models.IntegerField(default=0, verbose_name="Количество просмотров")
+    views_count = models.PositiveIntegerField(default=0, verbose_name="Количество просмотров")
 
     def get_absolute_url(self):
         return reverse("blog:post_detail", kwargs={"pk": self.pk})
