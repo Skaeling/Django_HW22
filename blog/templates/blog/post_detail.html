@@ -6,11 +6,17 @@
         <h6>Опубликовано: {{ post.created_at }}</h6>
     </div>
 
-    <div class="row mt-1">
+    <div class="row mt-3">
         <div class="row row-cols-2">
             <div class="col">
+                <div class="container" style="height: 75vh">
+                    <div class="row h-100">
+                <div class="col-12 h-100 overflow-auto">
                 <p class="text-start">
                     {{ post.body|safe }}</p>
+                </div>
+                </div>
+                </div>
                 <p class="text-end text-secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                              class="bi bi-eye" viewBox="0 0 16 16">
