@@ -58,8 +58,3 @@ class PostDeleteView(DeleteView):
     extra_context = {'title': 'Удаление статьи'}
     context_object_name = 'post'
     success_url = reverse_lazy('blog:posts_list')
-
-
-
-
-

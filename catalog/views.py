@@ -50,4 +50,3 @@ class ProductCreateView(CreateView):
             print(f'В категорию "{form.instance.category}" добавлен новый продукт: "{form.instance.name}"')
 
         return super().form_valid(form)
-
