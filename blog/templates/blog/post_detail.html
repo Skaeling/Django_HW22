@@ -8,15 +8,16 @@
 
     <div class="row mt-3">
         <div class="row row-cols-2">
+
+            <!-- Текст статьи-->
             <div class="col">
-                <div class="container" style="height: 75vh">
-                    <div class="row h-100">
-                <div class="col-12 h-100 overflow-auto">
-                <p class="text-start">
-                    {{ post.body|safe }}</p>
+                <div class="overflow-auto p-3 bg-body-tertiary" style="max-width: 650px; max-height: 750px;">
+                        <p class="text-start">
+                            {{ post.body|safe }}
+                        </p>
                 </div>
-                </div>
-                </div>
+
+                <!-- Счетчик просмотров-->
                 <p class="text-end text-secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                              class="bi bi-eye" viewBox="0 0 16 16">
@@ -25,14 +26,16 @@
                         </svg>
                         {{ post.views_count }}
                 </p>
+
+                <!-- Кнопки-->
                 <div class="container mt-1">
-                    <a href="{% url 'blog:posts_list' %}" class="btn btn-info">К оглавлению</a>
+                    <a href="{% url 'blog:posts_list' %}" class="btn btn-secondary">К оглавлению</a>
                     <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-info">Редактировать</a>
                     <a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-warning">Удалить</a>
                 </div>
             </div>
             <div class="col">
-                <img src="{{ post.preview.url }}" alt="image" height="300" width="600">
+                <img src="{{ post.preview.url }}" alt="image" height="300" width="600" class="rounded">
             </div>
         </div>
     </div>
