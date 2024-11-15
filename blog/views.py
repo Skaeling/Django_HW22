@@ -19,7 +19,28 @@ class PostDetailView(DetailView):
     extra_context = {'title': 'Блог'}
 
 
-# class CreatePostView(CreateView):
-#     model = Post
-#     template_name = 'blog/create_post.html'
-#     context_object_name = 'post'
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title', 'body', 'preview', 'is_published']
+    template_name = 'blog/create_post.html'
+    extra_context = {'title': 'Добавить новую статью'}
+
+
+class PostUpdateView(UpdateView):
+    model = Post
+    fields = ['title', 'body', 'preview', 'is_published']
+    template_name = 'blog/create_post.html'
+    extra_context = {'title': 'Редактировать статью'}
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'blog/post_confirm_delete.html'
+    extra_context = {'title': 'Удаление статьи'}
+    context_object_name = 'post'
+    success_url = reverse_lazy('blog:posts_list')
+
+
+
+
+
