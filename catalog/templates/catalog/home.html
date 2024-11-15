@@ -20,6 +20,7 @@
                             <h3>{{ product.price }} $</h3>
                             <p class="card-text text-secondary">{{ product.description|truncatechars:20 }}</p>
                             <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-info">Подробнее</a>
+
                         </div>
                     </div>
                 </div>
@@ -27,7 +28,7 @@
             </div>
         </div>
     </div>
-    <div class='row mt-5'>
+    <div class='row'>
 
             <!--Пагинатор-->
         <div class="col-12">
