@@ -3,7 +3,7 @@ import os
 from .models import Post
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.core.mail import send_mail
 
 
@@ -50,6 +50,9 @@ class PostUpdateView(UpdateView):
     fields = ['title', 'body', 'preview', 'is_published']
     template_name = 'blog/create_post.html'
     extra_context = {'title': 'Редактировать статью'}
+
+    # def get_success_url(self, **kwargs):
+    #     return reverse("blog:post_detail", kwargs={'pk': self.object.pk})
 
 
 class PostDeleteView(DeleteView):
