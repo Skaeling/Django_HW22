@@ -1,0 +1,46 @@
+{% extends 'catalog/base.html' %}
+{% block content%}
+<div class="col-12 text-center">
+    {% include "catalog/includes/inc_catalog_header.html" with title=title header="Заметки о жизни морских обитателей и водоплавающих птиц"%}
+
+    <!-- Превью постов-->
+    <div class="row mt-3">
+        <div class="container">
+            <div class="row row-cols-3">
+                {% for post in posts %}
+                <div class="col mb-3">
+                    <div class="card border-secondary">
+                        <div class="card-header bg-info-subtle">Статья {{ post.pk }}</div>
+                        <img src="{{ post.preview.url }}" alt="" height="250"
+                                class="card-img-top rounded">
+                        <div class="card-body">
+                            <h5 class="card-title mt-2">{{ post.title }}</h5>
+                            <p class="card-text text-secondary">{{ post.body|safe|truncatechars:100 }}</p>
+                            <a href="{% url 'blog:post_detail' post.pk %}" class="btn btn-info">Подробнее</a>
+                            <p class="text-end text-secondary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                </svg>
+                                {{ post.views_count }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class='row mt-5'>
+
+            <!--Пагинатор-->
+        <div class="col-12">
+            {% include "catalog/includes/inc_catalog_pages.html" with page=page_obj %}
+
+<!--            Переход на форму добавления нового поста-->
+                <a href="{% url 'blog:create_post' %}" class="btn btn-info">Добавить новый пост</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -34,7 +34,7 @@
     "fields": {
         "name": "Пингвин плюшевый мультицвет",
         "description": "20 см нежнейшего пуха, сменный клюв в подарок",
-        "image": "photos/tupik_sK7DVr4.png",
+        "image": "photos/myagkaya-igrushka-steiff-palle-king-penguin-52-sm-075902.jpg",
         "category": 1,
         "price": 120,
         "created_at": "2024-10-31T15:04:50.369Z",
@@ -58,7 +58,7 @@
     "model": "catalog.product",
     "pk": 4,
     "fields": {
-        "name": "Заяц попрыгун малый",
+        "name": "Заяц-попрыгун малый",
         "description": "Серая спинка зимой и летом",
         "image": "photos/9Rr7oYb5P6d1ubgUZPu3xrLQhmKz-GNub0ZDaCqmZVY=.jpeg",
         "category": 2,
@@ -99,7 +99,7 @@
     "fields": {
         "name": "Дельфин-мочалка разноцветный",
         "description": "Плеск и блеск для всей семьи",
-        "image": "photos/cb842buikegvjuj5ath0.jpg",
+        "image": "photos/5248697-1.jpg",
         "category": 1,
         "price": 150,
         "created_at": "2024-11-01T10:58:20.883Z",

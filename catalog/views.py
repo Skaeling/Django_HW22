@@ -1,58 +1,52 @@
-from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView
+from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
 from .models import Product, Contact
-from .forms import ProductForm
+from .forms import ProductForm, ContactForm
 
 
-def home(request):
-    products = Product.objects.all()
-    paginator = Paginator(products, 6)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    context = {
-        "page_obj": page_obj,
-        'products': products,
-        'title': "Главная"
-    }
-    return render(request, "catalog/home.html", context)
+class HomeListView(ListView):
+    model = Product
+    template_name = "catalog/home.html"
+    extra_context = {'title': 'Главная'}
+    paginate_by = 6
 
 
-def get_contact(request):
-    context = {
-        'title': "Контакты"
-    }
-    if request.method == 'POST':
-        contact = Contact()
-        contact.name = request.POST.get("name")
-        contact.email = request.POST.get("email")
-        contact.message = request.POST.get("message")
-        contact.save()
-        result = Contact.objects.all()
-        context = {
-            "contact": result,
-            'title': "Контакты"
-        }
-        print(f'Получено новое сообщение от {contact.name} ({contact.email}): {contact.message}')
-        return render(request, 'catalog/contact.html', context)
-    return render(request, 'catalog/contact.html', context)
+class ContactCreateView(CreateView):
+    model = Contact
+    form_class = ContactForm
+    extra_context = {'title': 'Контакты'}
+    template_name = 'catalog/contact.html'
+    success_url = reverse_lazy('catalog:contact')
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['contacts'] = Contact.objects.all()
+        return context_data
 
-def product(request, pk):
-    product_pk = Product.objects.get(pk=pk)
-    context = {
-        'product': product_pk
-    }
-    return render(request, 'catalog/product.html', context)
-
-
-def user_product(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
+    def form_valid(self, form):
         if form.is_valid():
-            new_product = form.save()
-            print(f'Добавлен новый продукт: {new_product.name} стоимостью {new_product.price}$')
-            return redirect('product', new_product.pk)
-    else:
-        form = ProductForm()
-    return render(request, 'catalog/user_product.html', {'title': "Добавить товар", "form": form})
+            print(f'У вас новое сообщение от {form.instance.name}({form.instance.email}): {form.instance.message}')
 
+        return super().form_valid(form)
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
+    extra_context = {'title': 'Описание товара'}
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/add_product.html'
+    context_object_name = 'product'
+    extra_context = {'title': 'Добавить товар'}
+
+    def form_valid(self, form):
+        if form.is_valid():
+            print(f'В категорию "{form.instance.category}" добавлен новый продукт: "{form.instance.name}"')
+
+        return super().form_valid(form)

@@ -1,5 +1,4 @@
 {% extends 'catalog/base.html' %}
-{% block title%}{{ title }}{% endblock %}
 {% block content%}
 <div class="col-12 text-center">
     {% include "catalog/includes/inc_catalog_header.html" with title=title header="Добро пожаловать в магазин игрушек и товаров для дома!"%}
@@ -8,15 +7,20 @@
     <div class="row mt-3">
         <div class="container">
             <div class="row row-cols-3">
-                {% for product in page_obj %}
+                {% for product in product_list %}
                 <div class="col mb-3">
-                    <div class="card border-info">
-                        <div class="card-header">{{ product.category }}</div>
+                    <div class="card border-secondary">
+                        <div class="card-header bg-info-subtle">{{ product.category }}</div>
+<!--                        <img src="{{ product.image.url }}" alt="" height="50"-->
+<!--                                class="card-img-top rounded">-->
                         <div class="card-body">
+                            <img src="{{ product.image.url }}" alt="" width="100" height="100"
+                         class="rounded ">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <h3>{{ product.price }} $</h3>
                             <p class="card-text text-secondary">{{ product.description|truncatechars:20 }}</p>
-                            <a href="{% url 'product' product.pk %}" class="btn btn-info">Подробнее</a>
+                            <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-info">Подробнее</a>
+
                         </div>
                     </div>
                 </div>
@@ -24,16 +28,14 @@
             </div>
         </div>
     </div>
-    <div class='row mt-5'>
+    <div class='row'>
 
             <!--Пагинатор-->
         <div class="col-12">
-            {% if products.count > 3 %}
-            {% include "catalog/includes/inc_catalog_pages.html" %}
-            {% endif %}
+            {% include "catalog/includes/inc_catalog_pages.html" with page=page_obj %}
 
-            <!--Переход на форму нового товара-->
-                <a href="{% url 'user_product' %}" class="btn btn-info">Добавить новый товар</a>
+            <!--Переход на форму добавления нового товара-->
+                <a href="{% url 'catalog:add_product' %}" class="btn btn-info">Добавить новый товар</a>
         </div>
     </div>
 </div>

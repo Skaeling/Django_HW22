@@ -1,0 +1,41 @@
+{% extends 'catalog/base.html' %}
+{% block content%}
+<div class="col-12">
+            {% include "catalog/includes/inc_catalog_header.html" with title=title header="Заполните форму"%}
+            <div class="row mt-3">
+                <div class="container d-flex justify-content-around">
+                        <div class="col-6">
+                            <!-- Форма -->
+                            <form method="post" enctype="multipart/form-data" action="" class="form-floating">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="title" class="form-label"><strong>Название</strong></label>
+                                    <textarea name="title" class="form-control border-info" id="title" rows="1">{% if object %}{{ object.title }}{% endif %}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="body" class="form-label"><strong>Текст статьи</strong></label>
+                                    <textarea name="body" class="form-control border-info" id="body" rows="10">{% if object %}{{ object.body }}{% endif %}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="preview" class="form-label"><strong>Изображение</strong></label>
+                                    <input name='preview' class="form-control border-info" type="file" id="preview">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="is_published"><strong>Опубликовать</strong></label>
+                                    <input type="checkbox" name="is_published" class="form-check-input me-1 border-info" id="is_published"
+                                       placeholder="Опубликована">
+                                </div>
+                                <a href="{% url 'blog:posts_list' %}" class="btn btn-info">Отменить</a>
+                                <button type="submit" class="btn btn-info">
+                                    {% if object %}
+                                    Сохранить пост
+                                    {% else %}
+                                    Cоздать пост
+                                    {% endif %}
+                                </button>
+                            </form>
+                        </div>
+                </div>
+            </div>
+</div>
+{% endblock %}
