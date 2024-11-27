@@ -9,33 +9,10 @@
                 <!-- Форма добавления продукта -->
                 <form method="post" enctype="multipart/form-data" action="" class="form-floating">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="name"><strong>Наименование</strong></label>
-                        <input type="text" name="name" class="form-control border-info" id="name"
-                               placeholder="Пингвин плюшевый" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label"><strong>Описание</strong></label>
-                        <textarea name="description" class="form-control border-info" id="description" rows="3"
-                                  required>
-                                    </textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label"><strong>Изображение</strong></label>
-                        <input name='image' class="form-control border-info" type="file" id="image">
-                    </div>
-                    <div class="mb-3">
-                        <label for="category"><strong>Категория</strong></label>
-                                <select class="form-select border-info" name="category" aria-label="category" id="category" required>
-                                        <option selected>Выберите из списка</option>
-                                        <option value="1">Дельфины и пингвины</option>
-                                        <option value="2">Медведи и зайки</option>
-                                </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="price"><strong>Стоимость</strong></label>
-                        <input type="number" name="price" class="form-control border-info" id="price" required>
-                    </div>
+                    {{ form.as_p}}
+<!--                        {% for error in form.errors %}-->
+<!--                        <p style="color: red">{{ error }}</p>-->
+<!--                        {% endfor %}-->
                     <a href="{% url 'catalog:home' %}" class="btn btn-info">Отменить</a>
                     <button type="submit" class="btn btn-info">
                         {% if object %}
