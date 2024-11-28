@@ -1,8 +1,18 @@
 from django.forms import ModelForm
 from .models import Product, Contact
 from django.core.exceptions import ValidationError
+from config.settings import PROHIBITED_WORDS
 
-PROHIBITED_WORDS = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
+VALID_IMAGE_EXTENSIONS = [
+    ".jpg",
+    ".jpeg",
+]
+
+
+def valid_url_extension(url, extension_list=None):
+    if extension_list is None:
+        extension_list = VALID_IMAGE_EXTENSIONS
+    return any([url.endswith(e) for e in extension_list])
 
 
 class ProductForm(ModelForm):
@@ -36,6 +46,17 @@ class ProductForm(ModelForm):
         elif price == 0:
             raise ValidationError('Цена не может быть равна нулю')
         return price
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image', False)
+        if image:
+            if image.size > 5 * 1024 * 1024:
+                raise ValidationError("Файл превышает допустимый размер ( > 5mb )")
+            # elif not valid_url_extension(image.url):
+            #     raise ValidationError("Not a valid Image. The URL must have an image extensions (.jpg/.jpeg/.png)")
+            return image
+        else:
+            raise ValidationError("Файл не был загружен, повторите попытку")
 
 
 class ContactForm(ModelForm):
