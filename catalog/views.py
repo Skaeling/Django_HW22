@@ -41,7 +41,7 @@ class ProductDetailView(DetailView):
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
-    template_name = 'catalog/add_product.html'
+    template_name = 'catalog/product_form.html'
     context_object_name = 'product'
     extra_context = {'title': 'Добавить товар'}
 
@@ -55,7 +55,7 @@ class ProductCreateView(CreateView):
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
-    template_name = 'catalog/add_product.html'
+    template_name = 'catalog/product_form.html'
     context_object_name = 'product'
     extra_context = {'title': 'Редактировать товар'}
 

@@ -44,11 +44,21 @@ class ProductForm(ModelForm):
 
     def clean_image(self):
         image = self.cleaned_data.get('image')
-        if image.size > 5 * 1024 * 1024:
-            raise ValidationError("Файл превышает допустимый размер ( > 5mb )")
-        elif not valid_url_extension(image.image.format):
-            raise ValidationError("Неподходящий формат файла. Выберите из списка разрешенных: (.jpg/.jpeg/.png)")
-        return image
+        # Если продукт редактируется, и новое изображение не загружают
+        if not isinstance(image, str):
+            if image.size > 5 * 1024 * 1024:
+                raise ValidationError("Файл превышает допустимый размер ( > 5mb )")
+            # Если продукт редактируется, и загружают новое изображение
+            if hasattr(image, 'url'):
+                if not valid_url_extension(image.url):
+                    raise ValidationError(
+                        "Неподходящий формат файла. Выберите из списка разрешенных: (.jpg/.jpeg/.png)")
+            # Если создается новый продукт и изображение загружают
+            elif not valid_url_extension(image.image.format.lower()):
+                raise ValidationError("Неподходящий формат файла. Выберите из списка разрешенных: (.jpg/.jpeg/.png)")
+            return image
+        else:
+            return image
 
 
 class ContactForm(ModelForm):

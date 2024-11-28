@@ -146,6 +146,7 @@ EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
 
 PROHIBITED_WORDS = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 VALID_IMAGE_EXTENSIONS = [
-    "JPEG",
-    "JPG",
+    "jpeg",
+    "jpg",
+    "png"
 ]
