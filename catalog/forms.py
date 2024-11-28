@@ -10,18 +10,23 @@ class ProductForm(ModelForm):
         model = Product
         exclude = ('created_at', 'updated_at',)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for filed_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
     def clean_name(self):
         name = self.cleaned_data.get('name')
         for word in PROHIBITED_WORDS:
             if word in name.lower():
-                raise ValidationError(f'Использовано запрещенное слово "{word}", введите другое название')
+                raise ValidationError(f'Использовано запрещенное слово "{word}"! Введите другое название.')
         return name
 
     def clean_description(self):
         description = self.cleaned_data.get('description')
         for word in PROHIBITED_WORDS:
             if word in description.lower():
-                raise ValidationError(f'Использовано запрещенное слово "{word}", откорректируйте описание')
+                raise ValidationError(f'Использовано запрещенное слово "{word}"! Откорректируйте описание.')
         return description
 
     def clean_price(self):

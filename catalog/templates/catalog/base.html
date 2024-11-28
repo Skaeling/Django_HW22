@@ -14,6 +14,18 @@
             font-family: Verdana, Arial, Helvetica, sans-serif;
             font-size: 7pt;
              }
+        .error-message {
+       color: red;
+       font-size: 14px;
+       margin-top: 5px;
+        }
+
+        .p_form {border: none;
+        outline: 1px solid #0dcaf0;
+        border-radius: 5px;
+        }
+
+
 
 
 
@@ -23,7 +35,7 @@
 <body>
 <div class='row'>
     <!-- Навигационная панель -->
-{% include "catalog/includes/inc_catalog_menu.html" %}
+    {% include "catalog/includes/inc_catalog_menu.html" %}
 
     <!--  Основная колонка -->
     <div class="col-9 mt-3">
@@ -32,10 +44,10 @@
     </div>
     <!--footer-->
     <div class="col-1 d-flex flex-column justify-content-end">
-    <footer>
-        <p class="p-small">&copy; Company 2017-2024</p>
-    </footer>
-</div>
+        <footer>
+            <p class="p-small">&copy; Company 2017-2024</p>
+        </footer>
+    </div>
 </div>
 <script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>

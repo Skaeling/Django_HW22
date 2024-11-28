@@ -9,10 +9,57 @@
                 <!-- Форма добавления продукта -->
                 <form method="post" enctype="multipart/form-data" action="" class="form-floating">
                     {% csrf_token %}
-                    {{ form.as_p}}
-<!--                        {% for error in form.errors %}-->
-<!--                        <p style="color: red">{{ error }}</p>-->
-<!--                        {% endfor %}-->
+                    <div class="form-group mt-3">
+                        <label><strong>Наименование товара:</strong></label>
+                        <p class="p_form">{{ form.name }}</p>
+                        {% if form.name.errors %}
+                        <div class="error-message">
+                            {{ form.name.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label><strong>Описание:</strong></label>
+                        <p class="p_form">{{ form.description }}</p>
+                        {% if form.description.errors %}
+                        <div class="error-message">
+                            {{ form.description.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label><strong>Изображение товара:</strong></label>
+                        <p class="p_form">{{ form.image }}</p>
+                        {% if form.image.errors %}
+                        <div class="error-message">
+                            {{ form.image.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label><strong>Категория:</strong></label>
+                        <p class="p_form">{{ form.category }}</p>
+                        {% if form.category.errors %}
+                        <div class="error-message">
+                            {{ form.category.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label><strong>Стоимость:</strong></label>
+                        <p class="p_form">{{ form.price }}</p>
+                        {% if form.price.errors %}
+                        <small class="text-danger">{{ form.price.errors.0 }}</small>
+                        {% endif %}
+                    </div>
+<!--                    {% if form.errors %}-->
+<!--                    {% for field in form %}-->
+<!--                    {% for error in field.errors %}-->
+<!--                    <p style="color: red">{{ error }}</p>-->
+<!--                    {% endfor %}-->
+<!--                    {% endfor %}-->
+<!--                    {% endif %}-->
+                    <div class="col-12 mt-5 text-center">
                     <a href="{% url 'catalog:home' %}" class="btn btn-info">Отменить</a>
                     <button type="submit" class="btn btn-info">
                         {% if object %}
@@ -21,6 +68,7 @@
                         Cоздать товар
                         {% endif %}
                     </button>
+                    </div>
                 </form>
             </div>
         </div>
