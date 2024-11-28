@@ -1,0 +1,16 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+<div class="col-12">
+    {% include "catalog/includes/inc_catalog_header.html" with title=title header=product.category %}
+    <div class="row mt-5">
+            <div class="col-12 d-flex justify-content-around">
+                <h5>Вы действительно ходите удалить <strong>"{{ product.name }}"</strong>?</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-info">Отменить</a>
+                    <button type="submit" class="btn btn-warning">Подтвердить</button>
+                </form>
+            </div>
+    </div>
+</div>
+{% endblock %}
