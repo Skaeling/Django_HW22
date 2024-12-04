@@ -154,7 +154,7 @@ VALID_IMAGE_EXTENSIONS = [
 ]
 
 AUTH_USER_MODEL = 'users.User'
-LOGIN_URL = 'catalog:home'
+LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'catalog:home'
 
 

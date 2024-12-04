@@ -12,7 +12,8 @@
                                 {% csrf_token %}
                                 {{ form.as_p }}
                                 <div class="col-12 mt-5 text-center">
-                                <button type="submit" class="btn btn-info">Зарегистрироваться</button>
+                                    <a href="{% url 'catalog:home' %}" class="btn btn-info">Назад</a>
+                                    <button type="submit" class="btn btn-info">Зарегистрироваться</button>
                                 </div>
                             </form>
                 </div>
