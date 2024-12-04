@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'catalog',
     'blog',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,5 @@ VALID_IMAGE_EXTENSIONS = [
     "jpg",
     "png"
 ]
+
+AUTH_USER_MODEL = 'users.User'
