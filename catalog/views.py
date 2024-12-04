@@ -1,4 +1,4 @@
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
 from .models import Product, Contact
@@ -41,7 +41,7 @@ class ProductDetailView(DetailView):
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
-    template_name = 'catalog/add_product.html'
+    template_name = 'catalog/product_form.html'
     context_object_name = 'product'
     extra_context = {'title': 'Добавить товар'}
 
@@ -50,3 +50,25 @@ class ProductCreateView(CreateView):
             print(f'В категорию "{form.instance.category}" добавлен новый продукт: "{form.instance.name}"')
 
         return super().form_valid(form)
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_form.html'
+    context_object_name = 'product'
+    extra_context = {'title': 'Редактировать товар'}
+
+    def form_valid(self, form):
+        if form.is_valid():
+            print(f'Отредактирован продукт: "{form.instance.name}"')
+
+        return super().form_valid(form)
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'catalog/product_confirm_delete.html'
+    context_object_name = 'product'
+    extra_context = {'title': 'Удалить товар'}
+    success_url = reverse_lazy('catalog:home')
