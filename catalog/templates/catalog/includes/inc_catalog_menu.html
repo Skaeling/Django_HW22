@@ -1,4 +1,4 @@
-<div class="col-2 bg-dark">
+<div class="col-2 bg-dark rounded-end">
     <nav class="navbar">
         <div class="container-xxl d-flex flex-column justify-content-start high">
             <a class="navbar-brand bg-info text-black col-11 rounded text-center" href="#">Deep Blue Store</a>
@@ -54,19 +54,34 @@
             <div class="col-12">
                 <hr class="text-info" style="size: 20px;">
             </div>
+            {% if user.is_authenticated %}
             <div class="btn-group dropup mb-4 pd-0">
                 <a href="#"
                    class="btn btn-dark dropdown-toggle d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/static/img/tupik.png" alt="" width="32" height="32"
+                    <img src="{{ user.avatar.url }}" alt="" width="32" height="32"
                          class="rounded-circle me-2">
-                    <strong>Пользователь</strong>
+                    <strong>{{ user.username }}</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow mb-1" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item text-info" href="#">Профиль</a></li>
-                    <li><a class="dropdown-item text-info" href="#">Выход</a></li>
+                    <li><a class="dropdown-item text-info" href="{% url 'users:user_detail' user.pk %}">Мой профиль</a></li>
+                        <li><form method="post" action="{% url 'users:logout' %}">{% csrf_token %}<button type="submit" class="dropdown-item btn btn-link text-info">Выход</button></form></li>
+
                 </ul>
             </div>
+            {% else %}
+            <div class="btn-group dropup mb-4 pd-0">
+                <a href="#"
+                   class="btn btn-dark dropdown-toggle d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                   id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <strong>Личный кабинет</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow mb-1" aria-labelledby="dropdownUser2">
+                    <li><a class="dropdown-item text-info" href="{% url 'users:login' %}">Войти</a></li>
+                    <li><a class="dropdown-item text-info" href="{% url 'users:register' %}">Регистрация</a></li>
+                </ul>
+            </div>
+            {% endif %}
         </div>
     </nav>
 </div>

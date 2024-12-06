@@ -43,7 +43,14 @@ INSTALLED_APPS = [
 
     'catalog',
     'blog',
+    'users',
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -113,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -137,12 +144,13 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
-
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 PROHIBITED_WORDS = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 VALID_IMAGE_EXTENSIONS = [
@@ -150,3 +158,10 @@ VALID_IMAGE_EXTENSIONS = [
     "jpg",
     "png"
 ]
+
+AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'catalog:home'
+
+
+

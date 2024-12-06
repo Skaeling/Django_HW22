@@ -1,0 +1,12 @@
+{% extends 'catalog/base.html' %}
+{% block title%}{{ title }}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content%}
+    <!--    Основная колонка -->
+        <div class="col-12">
+            {% include "catalog/includes/inc_catalog_header.html" with title=title only%}
+                <div class="container d-flex justify-content-center">
+                    {% crispy form %}
+                </div>
+            </div>
+{% endblock %}
