@@ -22,6 +22,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name="Категория")
     price = models.IntegerField(default='null', verbose_name='Стоимость')
     is_new = models.BooleanField(default=True, verbose_name="Новый товар")
+    is_published = models.BooleanField(default=False, verbose_name="Опубликован")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
 
@@ -35,6 +36,10 @@ class Product(models.Model):
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
         ordering = ['id', ]
+        permissions = [
+            ('can_unpublish_product', 'Can unpublish product'),
+            ('can_delete_product', 'Can delete product'),
+        ]
 
 
 class Contact(models.Model):

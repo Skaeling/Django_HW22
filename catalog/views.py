@@ -1,8 +1,9 @@
+from django.core.exceptions import PermissionDenied
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
 from .models import Product, Contact
-from .forms import ProductForm, ContactForm
+from .forms import ProductForm, ProductModeratorForm, ContactForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -66,6 +67,13 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
         return super().form_valid(form)
 
+    def get_form_class(self):
+        user = self.request.user
+        if user.has_perm('catalog.can_unpublish_product'):
+            return ProductModeratorForm
+        return ProductForm
+#     raise PermissionDenied
+
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
@@ -73,3 +81,11 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'product'
     extra_context = {'title': 'Удалить товар'}
     success_url = reverse_lazy('catalog:home')
+
+    def get_object(self, queryset=None):
+        product = super().get_object(queryset)
+        user = self.request.user
+        if not user.has_perm('catalog.can_delete_product'):
+            raise PermissionDenied
+                # HttpResponseForbidden('Недостаточно прав для выполнения удаления')
+        return product

@@ -13,7 +13,7 @@ def valid_url_extension(url, extension_list=None):
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        exclude = ('created_at', 'updated_at',)
+        exclude = ('created_at', 'updated_at', 'is_published')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -59,6 +59,12 @@ class ProductForm(ModelForm):
             return image
         else:
             return image
+
+
+class ProductModeratorForm(ProductForm, ModelForm):
+    class Meta:
+        model = Product
+        exclude = ('created_at', 'updated_at',)
 
 
 class ContactForm(ModelForm):
