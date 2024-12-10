@@ -1,3 +1,5 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, Row, Column, HTML, Submit
 from django.forms import ModelForm
 from .models import Product, Contact
 from django.core.exceptions import ValidationError
@@ -10,15 +12,22 @@ def valid_url_extension(url, extension_list=None):
     return any([url.endswith(e) for e in extension_list])
 
 
-class ProductForm(ModelForm):
-    class Meta:
-        model = Product
-        exclude = ('created_at', 'updated_at',)
+class CustomForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for filed_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+        if self.fields.get('image'):
+            self.fields['image'].help_text = 'Изображение размером не более 5 мб'
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Fieldset('', *self.fields, css_class='form-control border-info', style='font-size: 18px;'),
+            Row(
+                Column(HTML('<a class="btn btn-info form-group" href="javascript: history.back()">Назад</a>')),
+                Column(Submit('submit', '{% if object %}Сохранить{% else %}Создать{% endif %}', css_class='btn btn-info form-group')),
+                css_class='col-12 mt-2 d-flex justify-content-center text-center'
+            )
+        )
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
@@ -59,6 +68,24 @@ class ProductForm(ModelForm):
             return image
         else:
             return image
+
+
+class ProductForm(CustomForm):
+    class Meta:
+        model = Product
+        exclude = ('created_at', 'updated_at', 'is_published', 'owner')
+
+
+class ProductModeratorOwnerForm(CustomForm):
+    class Meta:
+        model = Product
+        exclude = ('created_at', 'updated_at', 'owner')
+
+
+class ProductModeratorForm(CustomForm):
+    class Meta:
+        model = Product
+        fields = ('is_published', )
 
 
 class ContactForm(ModelForm):

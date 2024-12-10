@@ -39,7 +39,9 @@
             {% include "catalog/includes/inc_catalog_pages.html" with page=page_obj %}
 
 <!--            Переход на форму добавления нового поста-->
+            {% if perms.blog.add_post %}
                 <a href="{% url 'blog:create_post' %}" class="btn btn-info">Добавить новый пост</a>
+            {% endif %}
         </div>
     </div>
 </div>

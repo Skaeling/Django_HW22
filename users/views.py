@@ -22,7 +22,7 @@ class RegisterView(SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        self.send_welcome_email(user.email)
+        # self.send_welcome_email(user.email)
         messages.success(self.request, "Регистрация прошла успешно!")
         return redirect(self.success_url)
 

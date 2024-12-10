@@ -29,9 +29,11 @@
 
                 <!-- Кнопки-->
                 <div class="container mt-1">
-                    <a href="{% url 'blog:posts_list' %}" class="btn btn-secondary">К оглавлению</a>
+                    <a href="javascript: history.back()" class="btn btn-secondary">Назад</a>
+                    {% if perms.blog.change_post and perms.blog.delete_post %}
                     <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-info">Редактировать</a>
                     <a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-warning">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
             <div class="col">

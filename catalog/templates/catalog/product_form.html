@@ -1,81 +1,13 @@
 {% extends 'catalog/base.html' %}
 {% block title%}{{ title }}{% endblock %}
+{% load crispy_forms_tags %}
 {% block content%}
 <div class="col-12">
     {% include "catalog/includes/inc_catalog_header.html" with title=title header="Заполните форму"%}
-    <div class="row mt-3">
-        <div class="container d-flex justify-content-around">
-            <div class="col-6">
-                <!-- Форма добавления продукта -->
-                <form method="post" enctype="multipart/form-data" action="" class="form-floating">
-                    {% csrf_token %}
-                    <div class="form-group mt-3">
-                        <label><strong>Наименование товара:</strong></label>
-                        <p class="p_form">{{ form.name }}</p>
-                        {% if form.name.errors %}
-                        <div class="error-message">
-                            {{ form.name.errors.0 }}
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="form-group mt-3">
-                        <label><strong>Описание:</strong></label>
-                        <p class="p_form">{{ form.description }}</p>
-                        {% if form.description.errors %}
-                        <div class="error-message">
-                            {{ form.description.errors.0 }}
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="form-group mt-3">
-                        <label><strong>Изображение товара (необязательно):</strong></label>
-                        <p class="p_form">{{ form.image }}</p>
-                        {% if form.image.errors %}
-                        <div class="error-message">
-                            {{ form.image.errors.0 }}
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="form-group mt-3">
-                        <label><strong>Категория:</strong></label>
-                        <p class="p_form">{{ form.category }}</p>
-                        {% if form.category.errors %}
-                        <div class="error-message">
-                            {{ form.category.errors.0 }}
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="form-group mt-3">
-                        <label><strong>Стоимость:</strong></label>
-                        <p class="p_form">{{ form.price }}</p>
-                        {% if form.price.errors %}
-                        <small class="text-danger">{{ form.price.errors.0 }}</small>
-                        {% endif %}
-                    </div>
-                    <div class="mb-3">
-                        <label><strong>Новинка:</strong></label>
-                        {% if product.is_new %}
-                        <input type="checkbox" name="is_new" class="form-check-input me-1 p_form" id="is_new" checked>
-                        {% else %}
-                        <input type="checkbox" name="is_new" class="form-check-input me-1 p_form" id="is_new">
-                        {% endif %}
-                        </div>
-
-                    <!--Кнопки-->
-                    <div class="col-12 mt-5 text-center">
-                    <a href="{% url 'catalog:home' %}" class="btn btn-info">Отменить</a>
-                    <button type="submit" class="btn btn-info">
-                        {% if object %}
-                        Сохранить товар
-                        {% else %}
-                        Cоздать товар
-                        {% endif %}
-                    </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div class="mt-1 container d-flex justify-content-center">
+        {% crispy form %}
     </div>
 </div>
+
 {% endblock %}
 

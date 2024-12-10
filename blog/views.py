@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy, reverse
 from django.core.mail import send_mail
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 class PostListView(ListView):
@@ -38,26 +39,29 @@ class PostDetailView(DetailView):
         return obj
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'body', 'preview', 'is_published']
     template_name = 'blog/create_post.html'
     extra_context = {'title': 'Добавить новую статью'}
+    permission_required = 'blog.add_post'
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'body', 'preview', 'is_published']
     template_name = 'blog/create_post.html'
     extra_context = {'title': 'Редактировать статью'}
+    permission_required = 'blog.change_post'
 
     # def get_success_url(self, **kwargs):
     #     return reverse("blog:post_detail", kwargs={'pk': self.object.pk})
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/post_confirm_delete.html'
     extra_context = {'title': 'Удаление статьи'}
     context_object_name = 'post'
     success_url = reverse_lazy('blog:posts_list')
+    permission_required = 'blog.delete_post'
