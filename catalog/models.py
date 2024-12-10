@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+import users.models
+
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name="Категория")
@@ -25,6 +27,8 @@ class Product(models.Model):
     is_published = models.BooleanField(default=False, verbose_name="Опубликован")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    owner = models.ForeignKey(users.models.User, null=True, blank=True, on_delete=models.CASCADE,
+                              related_name='products', verbose_name="Владелец")
 
     def get_absolute_url(self):
         return reverse("catalog:product_detail", kwargs={"pk": self.pk})
