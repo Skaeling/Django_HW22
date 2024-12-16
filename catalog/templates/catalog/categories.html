@@ -1,0 +1,62 @@
+{% extends 'catalog/base.html' %}
+{% block content%}
+<div class="col-12 text-center">
+  {% include "catalog/includes/inc_catalog_header.html" with title=title header="<u><strong>Кликните</strong></u> на фото раздела"%}
+</div>
+
+
+<!-- Карусель -->
+<div id="carouselExampleIndicators" class="carousel slide mt-3">
+  <div class="carousel-inner rounded-5 shadow-4-strong">
+    {% for category in categories %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ category.preview.url }}" class="d-block w-100" alt="..." data-toggle="collapse" data-target="#accordionExample" data-category-id="{{ category.id }}">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>{{ category.name }}</h5>
+        </div>
+      </div>
+    {% endfor %}
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon text-info" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+
+<!--Продукты-->
+<div class="row">
+  <div class="accordion" id="accordionExample">
+    {% include "catalog/partials/product_list.html" %}
+  </div>
+</div>
+
+
+<!--Скрипт загрузки аккордеона по клику на изображение в карусели-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+  // Обработчик событий для изображений в карусели
+  $('#carouselExampleIndicators .carousel-item img').on('click', function () {
+    var categoryId = $(this).data('category-id');
+    // Отправляем AJAX-запрос для получения списка продуктов для выбранной категории
+    $.ajax({
+      url: '{% url 'catalog:product_list_ajax' %}',
+      data: {
+        category_id: categoryId
+      },
+      success: function (data) {
+        // Обновляем содержимое элемента аккордеона новым списком продуктов
+        $('#accordionExample').html(data);
+        // Показываем аккордеон
+        $('#accordionExample').collapse('show');
+      }
+    });
+  });
+});
+</script>
+{% endblock %}

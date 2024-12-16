@@ -1,10 +1,13 @@
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
-from .models import Product, Contact
+from .models import Product, Contact, Category
 from .forms import ProductForm, ProductModeratorForm, ContactForm, ProductModeratorOwnerForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .services import get_products
 
 
 class HomeListView(ListView):
@@ -93,3 +96,31 @@ class ContactCreateView(CreateView):
             print(f'У вас новое сообщение от {form.instance.name}({form.instance.email}): {form.instance.message}')
 
         return super().form_valid(form)
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = "catalog/categories.html"
+    extra_context = {'title': 'Категории'}
+    context_object_name = 'categories'
+
+    def get_queryset(self):
+        queryset = cache.get('products_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('products_queryset', queryset, 60 * 15)
+        return queryset
+
+    # вариант для шаблона с перезагрузкой всей страницы
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     category_id = self.request.GET.get('category_id')
+    #     context['product_list'] = get_products(category_id)
+    #     return context
+
+
+def product_list_ajax(request):  # ajax вариант с обновлением только аккордеона
+    category_id = request.GET.get('category_id')
+    products = get_products(category_id)
+    return render(request, 'catalog/partials/product_list.html', {'product_list': products})
+

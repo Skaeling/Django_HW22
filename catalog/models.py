@@ -7,6 +7,7 @@ import users.models
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name="Категория")
     description = models.TextField(verbose_name="Описание")
+    preview = models.ImageField(upload_to='photos/', default='photos/default.jpeg', verbose_name="Превью")
 
     def __str__(self):
         return self.name
