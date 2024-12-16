@@ -2,7 +2,7 @@
 {% if product_list %}
 <h5 class="text-center bg-primary-subtle text-dark rounded p-2">Выберите интересующий продукт</h5>
 {% endif %}
-{% for product in product_list %}
+{% for product in products %}
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ product.id }}" aria-expanded="false" aria-controls="collapse{{ product.id }}">
@@ -11,8 +11,8 @@
     </h2>
     <div id="collapse{{ product.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        {{ product.description }}
-        <a href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a>
+        <p>{{ product.description }}</p>
+        <p><a href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a></p>
       </div>
     </div>
   </div>

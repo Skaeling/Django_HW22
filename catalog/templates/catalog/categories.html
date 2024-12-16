@@ -45,7 +45,7 @@ $(document).ready(function () {
     var categoryId = $(this).data('category-id');
     // Отправляем AJAX-запрос для получения списка продуктов для выбранной категории
     $.ajax({
-      url: '{% url 'catalog:product_list_ajax' %}',
+      url: '{% url 'catalog:products_ajax' %}',
       data: {
         category_id: categoryId
       },
