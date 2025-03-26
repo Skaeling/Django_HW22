@@ -73,6 +73,7 @@ class CustomLoginForm(AuthenticationForm):
 
 class CustomUpdateForm(UserChangeForm, CustomUserCreationForm):
     password = None
+    username = None
 
     class Meta:
         model = User

@@ -28,7 +28,7 @@
         <div class="card-body">
             <h5 class="card-title">ФИО: {% if user.first_name and user.last_name %}{{ user.first_name }} {{ user.last_name}}{% else %}Не указано{% endif %}</h5>
             <img src="{{ user.avatar.url }}" class="rounded" alt="..." width="120" height="120">
-            <p class="mt-3 card-text">Мой почта: {{ user.email }}</p>
+            <p class="mt-3 card-text">Моя почта: {{ user.email }}</p>
             <p class="card-text">Мой телефон: {% if user.phone_number %}{{ user.phone_number }}{% else %}Не указано{% endif %}</p>
             <p class="card-text">Страна проживания: {% if user.country %}{{ user.country }}{% else %}Не указано{% endif %}</p>
 
